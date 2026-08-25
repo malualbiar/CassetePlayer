@@ -1,91 +1,100 @@
-# 📼 CASSETTE — Retro 80s Skeuomorphic Hi-Fi Tape Deck
+# CASSETTE
 
-An authentic, tactile, web-based retro 80s boombox cassette player and vintage music library. Built with pure HTML5, Tailwind CSS, JavaScript, and the Web Audio API with zero heavy framework overhead.
+A web-based retro 80s boombox cassette player and vintage tape collection. Built entirely with vanilla HTML5, Tailwind CSS, JavaScript, and the Web Audio API without heavy frontend frameworks.
+
+**Live Demo:** [https://malualbiar.github.io/CassetePlayer/](https://malualbiar.github.io/CassetePlayer/)
 
 ---
 
-## 📸 Screenshots & Overview
+## Screenshots
 
-### 1. Main Deck & 3D Orbital Cassette Stack
-Experience a fully skeuomorphic boombox with rotating spindles, dancing VU meters, speaker cone bounce, mechanical transport buttons, and a 3D circular orbiting cassette arch.
+### 1. Main Boombox Deck & 3D Orbital Cassette Stack
+The main player view features a skeuomorphic boombox with rotating spindles, dancing VU meters, speaker cone bounce, mechanical transport buttons, and an interactive 3D circular cassette arch.
 
 ![Main Player Deck](assets/screenshots/player-main.png)
 
 ---
 
-### 2. Cassette Storage Rack & Master Tape Log Index
-Browse your cassette catalog with realistic cassette box spines, live search, format filters (Type I Ferro, Type II Chrome, Type IV Metal, Mixtapes), and a master log index table.
+### 2. My Tape Collection
+A visual gallery showing your curated cassette tape collection with vintage tape shell artwork, status badges, search filtering, and one-click insertion into the deck.
+
+![Tape Collection Screen](assets/screenshots/tapes-collection.png)
+
+---
+
+### 3. Cassette Storage Rack & Master Tape Log
+An archival index view with realistic cassette box spines, live search, format filters (Type I Ferro, Type II Chrome, Type IV Metal, Mixtapes), and collection management controls.
 
 ![Cassette Library & Storage Rack](assets/screenshots/library-rack.png)
 
 ---
 
-### 3. Hi-Fi Calibration: Analog Audio FX & Tone
-Shape your sound using Web Audio API nodes: synthetic analog tape hiss simulation, Dolby B noise reduction, real-time motor speed / tape pitch tuning (`0.85x`–`1.15x`), and a 3-band equalizer.
+### 4. Hi-Fi Deck Calibration: Audio FX & Tone
+A slide-out calibration drawer powered by the Web Audio API. It includes synthetic analog tape hiss simulation, Dolby B noise reduction, real-time motor speed and pitch adjustment (0.85x to 1.15x), and a 3-band equalizer.
 
 ![Audio FX & Tone Calibration](assets/screenshots/calibration-audio-fx.png)
 
 ---
 
-### 4. Custom Mixtape Recorder
-Upload your own audio tracks (`.mp3`, `.wav`, `.m4a`), personalize your cassette shell color, track title, artist name, and formula, and save it directly to your permanent collection in `localStorage`.
+### 5. Custom Mixtape Recorder
+Create and design personalized cassettes. Upload your own audio files (.mp3, .wav, .m4a), set the track title, artist name, shell color, and tape formula, then save it straight to your collection in localStorage.
 
 ![Record Custom Mixtape](assets/screenshots/calibration-mixtape.png)
 
 ---
 
-### 5. Keyboard Hardware Controls
-Full keyboard hotkeys support for an authentic hardware feel:
+### 6. Keyboard Hardware Controls
+Full keyboard hotkey support for quick hardware-style playback control.
 
 ![Keyboard Hotkeys](assets/screenshots/calibration-hotkeys.png)
 
 ---
 
-## ✨ Key Features
+## Features
 
-- **📻 Skeuomorphic Radio Chassis**:
+- **Skeuomorphic Boombox Hardware**:
   - Dark gunmetal carrying handle with a knurled rubber grip and machined pivot hinges.
   - Realistic speaker grille with bass-reactive vibrating cone animation.
   - Dual spinning tape reels with Play, Pause, Fast-Forward, and Rewind states.
   - Dual analog needle VU meters with warm amber backlighting.
-  - Mechanical latched transport buttons with realistic tactile press depths.
-  - Circular rotary Volume and Tuning knobs with scale notches and rotational dragging.
-- **🌀 3D Orbital Cassette Arch**:
-  - Interactive circular stacking layout with smooth picking-up and shift animations.
-  - Color-accurate vintage cassette shells for Type I (Normal Bias), Type II (Chrome CrO2), Type IV (Metal), and custom mixtapes.
+  - Mechanical latched transport buttons with tactile press depths.
+  - Rotary Volume and Tuning knobs with scale notches and rotational dragging.
+- **3D Circular Cassette Arch**:
+  - Orbital stacking layout with smooth picking-up and shift animations.
+  - Color-accurate vintage cassette shells for Type I, Type II, Type IV, and custom mixtapes.
   - Tapping a tape loads it directly into the deck bay and waits for the user to press Play.
-- **🎛️ Hi-Fi Calibration & Audio FX**:
-  - **Tape Hiss**: Authentic background magnetic tape noise (`OFF`, `SUBTLE`, `VINTAGE`).
+- **Hi-Fi Calibration & Audio FX**:
+  - **Tape Hiss**: Authentic background magnetic tape noise (Off, Subtle, Vintage).
   - **Dolby B Noise Reduction**: High-shelf filter to dampen tape hiss.
-  - **Tape Speed / Pitch Adjust (±15%)**: Real-time tape playback speed and analog pitch shifting.
-  - **3-Band EQ**: Hardware tone controls for Bass (120 Hz), Mid (1 kHz), and Treble (5 kHz).
-- **🎨 Themes & Lighting**:
-  - **Boombox Finishes**: *Classic Retro Orange*, *Stealth Gunmetal*, *Brushed Silver*, and *Studio Ivory*.
-  - **VU Backlight Glow**: *Warm Amber*, *Radioactive Green*, and *Ice Blue*.
-- **⚡ Uninterrupted Playback (SPA Router)**:
-  - Seamless client-side SPA routing so audio playback never cuts out when switching between Player, Tapes, and Library screens.
-- **⏻ Master Power Standby**:
-  - Power toggle fades out audio and dims the deck backlights and LEDs into standby mode.
+  - **Tape Speed & Pitch (±15%)**: Real-time tape motor speed adjustment with pitch shift.
+  - **3-Band Tone EQ**: Hardware tone controls for Bass (120 Hz), Mid (1 kHz), and Treble (5 kHz).
+- **Themes & Lighting**:
+  - **Boombox Finishes**: Retro Orange, Stealth Gunmetal, Brushed Silver, and Studio Ivory.
+  - **VU Backlight Glow**: Warm Amber, Radioactive Green, and Ice Blue.
+- **Uninterrupted Audio**:
+  - Client-side single page routing keeps audio playing seamlessly across Player, Tapes, and Library views.
+- **Master Power Standby**:
+  - Master power toggle fades out audio and dims the deck backlights and LEDs into standby mode.
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Key | Action |
 | :--- | :--- |
-| <kbd>Space</kbd> | **Play / Stop** audio |
-| <kbd>P</kbd> | **Pause / Unpause** playback |
-| <kbd>E</kbd> | **Eject** currently loaded tape |
-| <kbd>[</kbd> or <kbd>←</kbd> | **Rewind** 10 seconds |
-| <kbd>]</kbd> or <kbd>→</kbd> | **Fast Forward** 10 seconds |
-| <kbd>↑</kbd> / <kbd>↓</kbd> | **Volume Up / Down** (±5%) |
-| <kbd>M</kbd> | **Mute / Unmute** master audio |
-| <kbd>O</kbd> | **Master Power** On / Standby |
-| <kbd>S</kbd> | Open / Close **Settings & Calibration** drawer |
+| <kbd>Space</kbd> | Play / Stop audio |
+| <kbd>P</kbd> | Pause / Unpause playback |
+| <kbd>E</kbd> | Eject currently loaded tape |
+| <kbd>[</kbd> or <kbd>←</kbd> | Rewind 10 seconds |
+| <kbd>]</kbd> or <kbd>→</kbd> | Fast Forward 10 seconds |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | Volume Up / Down (±5%) |
+| <kbd>M</kbd> | Mute / Unmute master audio |
+| <kbd>O</kbd> | Master Power On / Standby |
+| <kbd>S</kbd> | Open / Close Settings & Calibration drawer |
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 CassetePlayer/
@@ -96,7 +105,7 @@ CassetePlayer/
 ├── style.css                # Skeuomorphic CSS styles & animations
 ├── .nojekyll                # Disables Jekyll processing on GitHub Pages
 ├── assets/
-│   └── screenshots/         # Documentation & README screenshots
+│   └── screenshots/         # Screenshots for documentation
 ├── js/
 │   ├── audio-deck.js        # Persistent Audio Deck singleton & transport controls
 │   ├── audio-effects.js     # Web Audio API filters, tape hiss, and speed controls
@@ -108,21 +117,21 @@ CassetePlayer/
 │   ├── tapes-app.js         # Tapes grid lifecycle controller
 │   ├── library-app.js       # Library rack & table lifecycle controller
 │   ├── transitions.js       # Seamless SPA view swap router
-│   └── tailwind-config.js   # Tailwind CSS typography & color palette tokens
+│   └── tailwind-config.js   # Tailwind typography & color tokens
 └── music/                   # Audio asset files (.mp3)
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### Local Setup
+### Local Development
 1. Clone the repository:
    ```bash
    git clone https://github.com/malualbiar/CassetePlayer.git
    cd CassetePlayer
    ```
-2. Serve locally with any static HTTP server (e.g. VS Code Live Server, Python HTTP server, or `npx serve`):
+2. Serve locally with any static HTTP server:
    ```bash
    # Using Python 3
    python -m http.server 8000
@@ -134,6 +143,6 @@ CassetePlayer/
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).
