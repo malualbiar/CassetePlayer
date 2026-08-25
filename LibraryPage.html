@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CASSETTE - Library & Master Archive</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;800;900&amp;family=Inter:wght@400;500;600&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="js/transitions.js"></script>
+</head>
+<body class="bg-surface text-on-surface player-page-body textured-bg flex flex-col font-body-md select-none m-0 p-0">
+
+<header class="app-header">
+    <a href="PlayerPage.html" class="font-headline-lg text-2xl md:text-3xl font-black tracking-tighter text-retro-orange hover:opacity-90 transition-opacity">
+        CASSETTE
+    </a>
+    <nav class="nav-container">
+        <a href="PlayerPage.html" data-nav="player" class="nav-link">Player</a>
+        <a href="TapesPage.html" data-nav="tapes" class="nav-link">Tapes</a>
+        <a href="LibraryPage.html" data-nav="library" class="nav-link active">Library</a>
+    </nav>
+    <div class="flex gap-3 md:gap-4 items-center">
+        <button id="btn-header-settings" type="button" aria-label="Settings" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="settings">settings</button>
+        <button id="btn-header-power" type="button" aria-label="Power" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="power_settings_new">power_settings_new</button>
+    </div>
+</header>
+
+<main class="main-view-container custom-scrollbar flex-1 w-full h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-4rem)] overflow-y-auto px-4 sm:px-6 md:px-deck-margin py-8 md:py-10 tapes-bg">
+    
+    <!-- Top Controls: Format Filter Pills & Search -->
+    <div class="flex flex-col lg:flex-row justify-between items-stretch lg:items-center mb-8 gap-4">
+        <!-- Filter Pills Row -->
+        <div class="flex flex-wrap items-center gap-2">
+            <span class="font-label-mono text-xs text-on-surface-variant/80 font-bold mr-1">FORMAT:</span>
+            <button class="filter-pill px-3.5 py-1.5 rounded-full font-label-mono text-xs font-bold bg-retro-orange text-white border border-retro-orange cursor-pointer shadow-sm transition-all" data-category="all">
+                All Tapes (8)
+            </button>
+            <button class="filter-pill px-3.5 py-1.5 rounded-full font-label-mono text-xs font-bold bg-surface-container text-on-surface-variant border border-outline-variant hover:border-retro-orange cursor-pointer shadow-sm transition-all" data-category="type_1">
+                Type I Ferro
+            </button>
+            <button class="filter-pill px-3.5 py-1.5 rounded-full font-label-mono text-xs font-bold bg-surface-container text-on-surface-variant border border-outline-variant hover:border-retro-orange cursor-pointer shadow-sm transition-all" data-category="type_2">
+                Type II Chrome CrO₂
+            </button>
+            <button class="filter-pill px-3.5 py-1.5 rounded-full font-label-mono text-xs font-bold bg-surface-container text-on-surface-variant border border-outline-variant hover:border-retro-orange cursor-pointer shadow-sm transition-all" data-category="type_4">
+                Type IV Metal
+            </button>
+            <button class="filter-pill px-3.5 py-1.5 rounded-full font-label-mono text-xs font-bold bg-surface-container text-on-surface-variant border border-outline-variant hover:border-retro-orange cursor-pointer shadow-sm transition-all" data-category="mixtape">
+                Mixtapes & Dubs
+            </button>
+        </div>
+
+        <!-- Search Input Box -->
+        <div class="relative w-full lg:w-72">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+            <input id="library-search" class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-outline rounded font-label-mono text-xs text-on-background focus:ring-1 focus:ring-retro-orange focus:border-retro-orange outline-none" placeholder="Search archive, artist, tape..." type="text">
+        </div>
+    </div>
+
+
+    <!-- Section 1: Cassette Storage Rack (Spine Shelf View) -->
+    <div class="mb-12">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="font-headline-lg text-lg font-bold text-on-background uppercase tracking-wider">Cassette Storage Rack</h2>
+            <span class="font-label-mono text-[11px] text-on-surface-variant">Click any spine to insert into player</span>
+        </div>
+
+        <div class="tape-rack-shelf rounded-2xl p-4 sm:p-6">
+            <div id="tape-rack-container" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Dynamically Rendered by js/library-app.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Master Tape Archive Table -->
+    <div class="mb-12">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="font-headline-lg text-lg font-bold text-on-background uppercase tracking-wider">Master Tape Log Index</h2>
+            <a href="TapesPage.html" class="font-label-mono text-xs text-retro-orange font-bold hover:underline flex items-center gap-1">
+                <span>View 3D Tape Cards</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </a>
+        </div>
+
+        <div class="bg-surface-container rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-outline-variant/60 bg-surface-container-high font-label-mono text-[11px] text-on-surface-variant uppercase tracking-wider">
+                            <th class="py-3 px-4 text-center w-12">#</th>
+                            <th class="py-3 px-4">Track / Cassette</th>
+                            <th class="py-3 px-4">Artist / Band</th>
+                            <th class="py-3 px-4">Tape Formula</th>
+                            <th class="py-3 px-4">Position / EQ</th>
+                            <th class="py-3 px-4 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archive-table-body">
+                        <!-- Dynamically Rendered by js/library-app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Floating Audio Preview Player Bar -->
+<div id="preview-player-bar" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-xl bg-stone-900/95 backdrop-blur-md text-white border border-retro-orange/40 rounded-2xl p-3 px-5 shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 truncate">
+        <button id="btn-preview-toggle" class="w-9 h-9 rounded-full bg-retro-orange text-white flex items-center justify-center shadow-md hover:opacity-90 cursor-pointer flex-shrink-0">
+            <span class="material-symbols-outlined text-lg">play_arrow</span>
+        </button>
+        <div class="truncate">
+            <div id="preview-track-title" class="font-headline-lg text-sm font-bold text-white truncate">Track Title</div>
+            <div id="preview-track-subtitle" class="font-label-mono text-[10px] text-stone-400 truncate">Artist Name</div>
+        </div>
+    </div>
+    <div class="flex items-center gap-2 flex-shrink-0">
+        <span class="font-label-mono text-[10px] text-retro-orange uppercase tracking-wider font-bold bg-retro-orange/20 px-2 py-0.5 rounded">PREVIEW</span>
+        <button id="btn-preview-close" class="p-1 rounded-full text-stone-400 hover:text-white cursor-pointer" title="Close Preview">
+            <span class="material-symbols-outlined text-sm">close</span>
+        </button>
+    </div>
+</div>
+
+<script src="js/tape-data.js"></script>
+<script src="js/rotary-knob.js"></script>
+<script src="js/audio-deck.js"></script>
+<script src="js/audio-effects.js"></script>
+<script src="js/settings-modal.js"></script>
+<script src="js/tape-carousel.js"></script>
+<script src="js/player-app.js"></script>
+<script src="js/tapes-app.js"></script>
+<script src="js/library-app.js"></script>
+</body>
+</html>

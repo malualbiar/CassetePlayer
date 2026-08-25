@@ -4,102 +4,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>CASSETTE - Tapes Collection</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;800;900&amp;family=Inter:wght@400;500&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "tertiary": "#5f5b54",
-                      "primary-container": "#d53d1b",
-                      "surface-container": "#f0eded",
-                      "surface-container-low": "#f6f3f2",
-                      "surface-tint": "#b52603",
-                      "on-background": "#1b1c1c",
-                      "primary": "#b22300",
-                      "on-primary-fixed-variant": "#8b1900",
-                      "surface-container-lowest": "#ffffff",
-                      "on-secondary-container": "#795950",
-                      "primary-fixed": "#ffdad2",
-                      "on-secondary": "#ffffff",
-                      "tertiary-fixed": "#e8e2d8",
-                      "surface-bright": "#fcf9f8",
-                      "tertiary-container": "#79746c",
-                      "on-surface": "#1b1c1c",
-                      "secondary-fixed": "#ffdbd0",
-                      "on-primary-container": "#fffbff",
-                      "surface-dim": "#dcd9d9",
-                      "on-error-container": "#93000a",
-                      "secondary": "#77574d",
-                      "outline-variant": "#e3beb6",
-                      "secondary-container": "#fed3c7",
-                      "on-error": "#ffffff",
-                      "secondary-fixed-dim": "#e7bdb1",
-                      "on-secondary-fixed-variant": "#5d4037",
-                      "inverse-on-surface": "#f3f0f0",
-                      "surface-container-high": "#eae7e7",
-                      "inverse-surface": "#303030",
-                      "inverse-primary": "#ffb4a3",
-                      "surface-container-highest": "#e4e2e1",
-                      "on-secondary-fixed": "#2c160e",
-                      "on-primary-fixed": "#3d0600",
-                      "error-container": "#ffdad6",
-                      "on-primary": "#ffffff",
-                      "on-tertiary-fixed-variant": "#4a463f",
-                      "on-tertiary-fixed": "#1e1b15",
-                      "outline": "#8f7069",
-                      "primary-fixed-dim": "#ffb4a3",
-                      "surface-variant": "#e4e2e1",
-                      "on-surface-variant": "#5b403a",
-                      "on-tertiary-container": "#fffbff",
-                      "tertiary-fixed-dim": "#ccc6bc",
-                      "error": "#ba1a1a",
-                      "background": "#fcf9f8",
-                      "surface": "#fcf9f8",
-                      "on-tertiary": "#ffffff",
-                      "retro-orange": "#c24930"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "spacing": {
-                      "unit": "4px",
-                      "deck-margin": "40px",
-                      "gutter": "16px",
-                      "component-gap": "24px"
-              },
-              "fontFamily": {
-                      "label-mono": [
-                              "Space Mono"
-                      ],
-                      "display-meter": [
-                              "Space Mono"
-                      ],
-                      "headline-lg": [
-                              "Hanken Grotesk"
-                      ],
-                      "body-md": [
-                              "Inter"
-                      ],
-                      "handwritten-tape": [
-                              "Inter"
-                      ],
-                      "headline-lg-mobile": [
-                              "Hanken Grotesk"
-                      ]
-              }
-            }
-          }
-        }
-</script>
+<script src="js/tailwind-config.js"></script>
 <link rel="stylesheet" href="style.css">
-<script src="transitions.js"></script>
+<script src="js/transitions.js"></script>
 </head>
 <body class="bg-surface text-on-surface player-page-body textured-bg flex flex-col font-body-md select-none m-0 p-0">
 
@@ -110,11 +20,11 @@
     <nav class="nav-container">
         <a href="PlayerPage.html" data-nav="player" class="nav-link">Player</a>
         <a href="TapesPage.html" data-nav="tapes" class="nav-link active">Tapes</a>
-        <span class="nav-link disabled">Library</span>
+        <a href="LibraryPage.html" data-nav="library" class="nav-link">Library</a>
     </nav>
     <div class="flex gap-3 md:gap-4 items-center">
-        <button type="button" aria-label="Settings" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="settings">settings</button>
-        <button type="button" aria-label="Power" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="power_settings_new">power_settings_new</button>
+        <button id="btn-header-settings" type="button" aria-label="Settings" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="settings">settings</button>
+        <button id="btn-header-power" type="button" aria-label="Power" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="power_settings_new">power_settings_new</button>
     </div>
 </header>
 
@@ -137,10 +47,10 @@
     </div>
 
     <!-- Tapes Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div id="tapes-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         
         <!-- Tape 1: Ajiing Mathiang - Lok Abyei -->
-        <a href="PlayerPage.html?tape=lok_abyei" title="Play Lok Abyei by Ajiing Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-retro-orange/30 hover:ring-retro-orange transition-all">
+        <a href="PlayerPage.html?tape=lok_abyei" data-tape-id="lok_abyei" title="Play Lok Abyei by Ajiing Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-retro-orange/30 hover:ring-retro-orange transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2c221e] to-[#1a1412]">
                 <div class="bg-gradient-to-r from-[#f7e0b5] via-[#fff3db] to-[#e8cca0] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#c39e6a] shadow-sm relative overflow-hidden">
                     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.08\'/%3E%3C/svg%3E')] opacity-50 pointer-events-none"></div>
@@ -177,7 +87,7 @@
         </a>
 
         <!-- Tape 2: Abyei Jazz Band - Nyanpanda -->
-        <a href="PlayerPage.html?tape=abyei_jazz" title="Play Nyanpanda by Abyei Jazz Band ft. Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-blue-600/30 hover:ring-blue-600 transition-all">
+        <a href="PlayerPage.html?tape=abyei_jazz" data-tape-id="abyei_jazz" title="Play Nyanpanda by Abyei Jazz Band ft. Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-blue-600/30 hover:ring-blue-600 transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#101c2e] to-[#080d18]">
                 <div class="bg-gradient-to-r from-[#dbeafe] via-[#eff6ff] to-[#bfdbfe] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#3b82f6] shadow-sm relative overflow-hidden">
                     <div class="flex justify-between items-start z-10">
@@ -213,7 +123,7 @@
         </a>
 
         <!-- Tape 3: Arop Nyok Kuol - Samira -->
-        <a href="PlayerPage.html?tape=samira" title="Play Samira by Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-red-700/30 hover:ring-red-700 transition-all">
+        <a href="PlayerPage.html?tape=samira" data-tape-id="samira" title="Play Samira by Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-red-700/30 hover:ring-red-700 transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2d1210] to-[#170908]">
                 <div class="bg-gradient-to-r from-[#ffe4e6] via-[#fff1f2] to-[#fecdd3] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#e11d48] shadow-sm relative overflow-hidden">
                     <div class="flex justify-between items-start z-10">
@@ -249,7 +159,7 @@
         </a>
 
         <!-- Tape 4: DJ Bako - Binia Juba Mix -->
-        <a href="PlayerPage.html?tape=binia_juba" title="Play Binia Juba Mix by DJ Bako" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-indigo-500/30 hover:ring-indigo-500 transition-all">
+        <a href="PlayerPage.html?tape=binia_juba" data-tape-id="binia_juba" title="Play Binia Juba Mix by DJ Bako" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-indigo-500/30 hover:ring-indigo-500 transition-all">
             <div class="tape-body clear h-48 rounded flex flex-col justify-between p-2 relative bg-[#ece9e0] border border-[#d3cfc3]">
                 <div class="bg-white h-20 rounded-sm p-2 flex flex-col justify-between shadow-sm relative z-10 rotate-[-1deg] border border-[#e5e7eb]">
                     <div class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-300/60 rounded-full blur-sm"></div>
@@ -285,7 +195,7 @@
         </a>
 
         <!-- Tape 5: Duop Pur Duop - Ci Mal Ben -->
-        <a href="PlayerPage.html?tape=ci_mal_ben" title="Play Ci Mal Ben by Duop Pur Duop" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-emerald-600/30 hover:ring-emerald-600 transition-all">
+        <a href="PlayerPage.html?tape=ci_mal_ben" data-tape-id="ci_mal_ben" title="Play Ci Mal Ben by Duop Pur Duop" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-emerald-600/30 hover:ring-emerald-600 transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#13271b] to-[#09150e]">
                 <div class="bg-gradient-to-r from-[#dcfce7] via-[#f0fdf4] to-[#bbf7d0] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#16a34a] shadow-sm relative overflow-hidden">
                     <div class="flex justify-between items-start z-10">
@@ -321,7 +231,7 @@
         </a>
 
         <!-- Tape 6: Mahmoud Abdelaziz - Juba -->
-        <a href="PlayerPage.html?tape=juba" title="Play Juba by Mahmoud Abdelaziz" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-amber-600/30 hover:ring-amber-600 transition-all">
+        <a href="PlayerPage.html?tape=juba" data-tape-id="juba" title="Play Juba by Mahmoud Abdelaziz" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-amber-600/30 hover:ring-amber-600 transition-all">
             <div class="tape-body white h-48 rounded flex flex-col justify-between p-2">
                 <div class="bg-[#fdfbf7] h-20 rounded-sm p-2 flex flex-col justify-between border border-[#e0dcd3] shadow-sm relative">
                     <div class="flex justify-between items-start border-b-2 border-[#b45309] pb-1">
@@ -353,7 +263,7 @@
         </a>
 
         <!-- Tape 7: Kuol Diing - Master Tape -->
-        <a href="PlayerPage.html?tape=kuol_diing" title="Play Kuol Diing Classics" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-yellow-600/30 hover:ring-yellow-600 transition-all">
+        <a href="PlayerPage.html?tape=kuol_diing" data-tape-id="kuol_diing" title="Play Kuol Diing Classics" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-yellow-600/30 hover:ring-yellow-600 transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#332211] to-[#1a1108]">
                 <div class="bg-gradient-to-r from-[#fef08a] via-[#fef9c3] to-[#fde047] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#ca8a04] shadow-sm relative overflow-hidden">
                     <div class="flex justify-between items-start z-10">
@@ -389,7 +299,7 @@
         </a>
 
         <!-- Tape 8: Nyakol Mathiang - Tiel -->
-        <a href="PlayerPage.html?tape=tiel" title="Play Tiel by Nyakol Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-pink-700/30 hover:ring-pink-700 transition-all">
+        <a href="PlayerPage.html?tape=tiel" data-tape-id="tiel" title="Play Tiel by Nyakol Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-pink-700/30 hover:ring-pink-700 transition-all">
             <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2a131e] to-[#15090f]">
                 <div class="bg-gradient-to-r from-[#fce7f3] via-[#fdf2f8] to-[#fbcfe8] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#db2777] shadow-sm relative overflow-hidden">
                     <div class="flex justify-between items-start z-10">
@@ -427,22 +337,14 @@
     </div>
 </main>
 
-<script>
-    const searchInput = document.getElementById('tape-search');
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            const cards = document.querySelectorAll('.tape-card');
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(query)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    }
-</script>
+<script src="js/tape-data.js"></script>
+<script src="js/rotary-knob.js"></script>
+<script src="js/audio-deck.js"></script>
+<script src="js/audio-effects.js"></script>
+<script src="js/settings-modal.js"></script>
+<script src="js/tape-carousel.js"></script>
+<script src="js/player-app.js"></script>
+<script src="js/tapes-app.js"></script>
+<script src="js/library-app.js"></script>
 </body>
 </html>

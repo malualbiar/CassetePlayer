@@ -28,6 +28,7 @@ html, body {
     width: 100vw;
     overflow: hidden;
     background-color: #d1c8be;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Base Body Textured Background */
@@ -39,7 +40,7 @@ html, body {
 }
 
 .tapes-bg {
-    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
     background-color: #fcf9f8;
 }
 
@@ -93,7 +94,7 @@ html, body {
     padding: 0 0.5rem;
     font-family: 'Space Mono', monospace;
     font-size: 0.75rem; /* 12px */
-    font-weight: 700 !important; /* Constant bold weight so width never changes */
+    font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: rgba(91, 64, 58, 0.65);
@@ -148,110 +149,131 @@ html, body {
 .player-page-body {
     height: 100%;
     height: 100dvh;
-    width: 100vw;
     overflow: hidden;
 }
 
 .player-scale-wrapper {
-    transform-origin: center center;
-    transform: scale(min(1, calc((100dvh - 72px) / 690), calc((100vw - 32px) / 1440)));
+    transform-origin: left center;
+    transform: scale(min(1, calc((100dvh - 72px) / 600), calc((100vw - 32px) / 1440)));
     will-change: transform;
 }
 
-/* --------------------------------------------------------------------------
-   5. Mechanical 3D Transport Buttons
-   -------------------------------------------------------------------------- */
-.mechanical-button {
-    background: linear-gradient(to bottom, #f5f5f5 0%, #e5e5e5 40%, #cccccc 100%);
-    box-shadow: 
-        inset 0 1px 2px rgba(255,255,255,0.9), 
-        inset 0 -1px 3px rgba(0,0,0,0.2),
-        inset 1px 0 2px rgba(255,255,255,0.5),
-        inset -1px 0 2px rgba(0,0,0,0.1),
-        0 4px 0 #999,
-        0 4px 3px rgba(0,0,0,0.4),
-        0 6px 8px rgba(0,0,0,0.3);
-    border: 1px solid #aaa;
-    border-bottom: none;
-    border-radius: 3px 3px 1px 1px;
-    transition: all 0.08s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    transform: translateY(0);
-    cursor: pointer;
-}
-
-.mechanical-button::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: -1px;
-    right: -1px;
-    height: 4px;
-    background: linear-gradient(to right, #888, #aaa, #888);
-    border-radius: 0 0 1px 1px;
-    z-index: -1;
-    transition: height 0.08s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mechanical-button:active, .mechanical-button.latched {
-    transform: translateY(3px);
-    box-shadow: 
-        inset 0 2px 4px rgba(0,0,0,0.3), 
-        inset 0 -1px 1px rgba(255,255,255,0.3),
-        0 1px 0 #888,
-        0 1px 2px rgba(0,0,0,0.5),
-        0 2px 4px rgba(0,0,0,0.2);
-    background: linear-gradient(to bottom, #e0e0e0, #c8c8c8);
-}
-
-.mechanical-button:active::after, .mechanical-button.latched::after {
-    height: 1px;
-    bottom: -1px;
-}
-
-.btn-symbol {
-    color: #333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-    opacity: 0.85;
-    font-size: 22px !important;
-    user-select: none;
+@media (max-height: 720px) {
+    .player-scale-wrapper {
+        transform: scale(min(0.85, calc((100dvh - 64px) / 600), calc((100vw - 24px) / 1440)));
+    }
 }
 
 /* --------------------------------------------------------------------------
-   6. Speaker Grille & Visual Details
+   5. Skeuomorphic Radio Deck & Textures
    -------------------------------------------------------------------------- */
-.speaker-grille {
-    background-color: #c7c1b5;
-    background-image: 
-        radial-gradient(circle at 1.5px 1.5px, #2a2520 1.5px, transparent 0),
-        linear-gradient(to right, rgba(0,0,0,0.1) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.2) 100%),
-        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.1) 100%);
-    background-size: 4px 4px, 100% 100%, 100% 100%;
-    background-position: 0 0, 0 0, 0 0;
+.chassis-texture {
+    background: linear-gradient(145deg, #c9442a 0%, #a8351e 40%, #872814 100%);
     box-shadow: 
-        inset 0 0 20px rgba(0,0,0,0.8),
-        inset 0 5px 15px rgba(0,0,0,0.6),
-        inset -5px -5px 15px rgba(255,255,255,0.1);
+        inset 0 2px 4px rgba(255, 255, 255, 0.35),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.5),
+        0 25px 50px -12px rgba(0, 0, 0, 0.45),
+        0 10px 20px rgba(0, 0, 0, 0.25);
     position: relative;
-    border: 2px solid #a39987;
+    border: 2px solid #732211;
 }
 
-.speaker-grille::after {
+.chassis-texture::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: 
-        radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 90%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
     pointer-events: none;
-    mix-blend-mode: multiply;
+    mix-blend-mode: overlay;
+}
+
+.crevice-dust {
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), inset 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.speaker-grille {
+    background-color: #1a1816;
+    background-image: 
+        radial-gradient(#050505 28%, transparent 32%),
+        radial-gradient(#2d2926 28%, transparent 32%),
+        linear-gradient(45deg, rgba(255,255,255,0.03) 0%, transparent 70%);
+    background-size: 6px 6px, 6px 6px, 100% 100%;
+    background-position: 0 0, 3px 3px, 0 0;
+    box-shadow: 
+        inset 0 10px 25px rgba(0,0,0,0.95), 
+        inset 0 0 15px rgba(0,0,0,0.9),
+        0 1px 1px rgba(255,255,255,0.2);
+    border: 1px solid #111;
+}
+
+.gold-panel {
+    background: linear-gradient(135deg, #e4d3a8 0%, #c9b483 35%, #a8915b 100%);
+    box-shadow: 
+        inset 1px 1px 2px rgba(255,255,255,0.8),
+        inset -1px -1px 3px rgba(0,0,0,0.4),
+        0 2px 6px rgba(0,0,0,0.3);
+    border: 1px solid #8a7647;
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.06) 2px,
+        rgba(255,255,255,0.06) 4px
+    );
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Mechanical Transport Controls
+   -------------------------------------------------------------------------- */
+.mechanical-button {
+    background: linear-gradient(to bottom, #ffffff 0%, #e6e6e6 50%, #cccccc 100%);
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.35), 
+        inset 0 1px 0 rgba(255,255,255,0.9), 
+        inset 0 -2px 2px rgba(0,0,0,0.25);
+    border-radius: 2px;
+    border: 1px solid #999;
+    border-bottom: 2px solid #666;
+    cursor: pointer;
+    transition: all 0.08s ease;
+    color: #333;
+}
+
+.mechanical-button:hover {
+    background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 50%, #d9d9d9 100%);
+}
+
+.mechanical-button:active,
+.mechanical-button.latched {
+    transform: translateY(2px);
+    background: linear-gradient(to bottom, #cccccc 0%, #b8b8b8 100%);
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.4), 
+        inset 0 2px 4px rgba(0,0,0,0.4);
+    border-bottom: 1px solid #555;
+    color: var(--color-retro-orange);
+}
+
+.btn-symbol {
+    font-size: 14px !important;
+    user-select: none;
 }
 
 /* --------------------------------------------------------------------------
    7. VU Meters & Rotary Knobs
    -------------------------------------------------------------------------- */
 .vu-meter-bg {
-    background: linear-gradient(to bottom, #e3d3b3, #c9b48f);
+    background: linear-gradient(to bottom, #e8dbc0, #cfbe99);
     box-shadow: 
         inset 0 2px 5px rgba(0,0,0,0.6), 
         inset 0 -1px 2px rgba(255,255,255,0.4),
@@ -270,6 +292,7 @@ html, body {
         0 8px 12px -4px rgba(0,0,0,0.5);
     position: relative;
     border: 1px solid #6b5322;
+    border-radius: 50% !important;
 }
 
 .knob-texture::after {
@@ -300,88 +323,15 @@ html, body {
     z-index: 10;
 }
 
-.antenna-rod {
-    background: linear-gradient(to bottom, #d0d0d0 0%, #ffffff 20%, #a0a0a0 50%, #707070 80%, #505050 100%);
-    box-shadow: 
-        0 20px 30px rgba(0,0,0,0.4),
-        0 5px 10px rgba(0,0,0,0.2),
-        inset 0 1px 1px rgba(255,255,255,0.9),
-        inset 0 -1px 2px rgba(0,0,0,0.6);
-    border-radius: 3px;
-    border: 1px solid #888;
-}
-
-/* --------------------------------------------------------------------------
-   8. Flat Crystal-Clear Glass Cassette Door
-   -------------------------------------------------------------------------- */
-.flat-glass-cover {
-    background: linear-gradient(
-        180deg, 
-        rgba(255, 255, 255, 0.07) 0%, 
-        rgba(255, 255, 255, 0.02) 20%, 
-        rgba(255, 255, 255, 0.01) 80%, 
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        inset 0 1px 2px rgba(255, 255, 255, 0.4),
-        inset 0 -1px 2px rgba(0, 0, 0, 0.3),
-        0 4px 10px rgba(0, 0, 0, 0.25);
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: 4px;
-    z-index: 25;
-    overflow: hidden;
-}
-
-.flat-glass-glare {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.09) 0%,
-        rgba(255, 255, 255, 0.02) 60%,
-        transparent 100%
-    );
-    pointer-events: none;
-}
-
-.chassis-texture {
-    background-color: #c24930;
-    background-image: 
-        linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.2) 100%),
-        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 60%);
-    position: relative;
-}
-
-.chassis-texture::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-    pointer-events: none;
-    border-radius: inherit;
-    mix-blend-mode: multiply;
-}
-
-.crevice-dust {
-    box-shadow: inset 0 0 12px rgba(60,40,30,0.4);
-}
-
 .screw-head {
-    width: 10px;
-    height: 10px;
-    background: linear-gradient(135deg, #eee, #999 40%, #555);
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ddd 0%, #888 60%, #444 100%);
     box-shadow: 
         inset 1px 1px 2px rgba(255,255,255,0.9), 
         inset -1px -1px 3px rgba(0,0,0,0.6), 
-        0 1px 2px rgba(0,0,0,0.5),
-        0 0 4px rgba(60,40,30,0.5);
+        0 1px 2px rgba(0,0,0,0.5);
     position: absolute;
     border: 1px solid #444;
 }
@@ -391,7 +341,7 @@ html, body {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
-    width: 6px; height: 1.5px;
+    width: 5px; height: 1.2px;
     background: linear-gradient(to bottom, #222, #444);
     box-shadow: 0 1px 0 rgba(255,255,255,0.6);
     border-radius: 1px;
@@ -402,34 +352,42 @@ html, body {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    width: 6px; height: 1.5px;
+    width: 5px; height: 1.2px;
     background: linear-gradient(to bottom, #222, #444);
     box-shadow: 0 1px 0 rgba(255,255,255,0.6);
     border-radius: 1px;
 }
 
-.gold-panel {
-    background: linear-gradient(135deg, #dbca9e 0%, #c3ae7f 40%, #a8915b 100%);
+/* --------------------------------------------------------------------------
+   8. Flat Crystal-Clear Glass Cassette Door
+   -------------------------------------------------------------------------- */
+.flat-glass-cover {
+    background: linear-gradient(
+        180deg, 
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0.02) 20%, 
+        rgba(255, 255, 255, 0.01) 80%, 
+        rgba(255, 255, 255, 0.06) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow: 
-        inset 1px 1px 2px rgba(255,255,255,0.8),
-        inset -1px -1px 3px rgba(0,0,0,0.4),
-        0 2px 4px rgba(0,0,0,0.3);
-    border: 1px solid #8a7647;
-    position: relative;
-    overflow: hidden;
-}
-
-.gold-panel::before {
-    content: '';
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+        0 4px 10px rgba(0, 0, 0, 0.25);
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.05) 2px,
-        rgba(255,255,255,0.05) 4px
-    );
+    z-index: 20;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.flat-glass-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
     pointer-events: none;
 }
 
@@ -443,60 +401,82 @@ html, body {
         -15px 0 30px 0 rgba(0,0,0,0.3) inset;
 }
 
-.dof-blur {
-    filter: blur(0.8px);
-}
-
 /* --------------------------------------------------------------------------
-   9. Tape Collection Page Styles
+   9. 3D Circular Cassette Tape Carousel Wheel (Player Page)
    -------------------------------------------------------------------------- */
-.tape-card {
-    box-shadow: 
-        0 10px 25px -5px rgba(0, 0, 0, 0.15),
-        inset 0 2px 4px rgba(255, 255, 255, 0.8),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.08);
-    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.85) 100%);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+.fanned-stack-viewport {
+    perspective: 1600px;
+    perspective-origin: 50% 50%;
 }
 
-.tape-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 
-        0 20px 35px -10px rgba(0, 0, 0, 0.25),
-        inset 0 2px 4px rgba(255, 255, 255, 0.9),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+.fanned-tape-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 310px;
+    height: 190px;
+    padding: 7px !important;
+    box-sizing: border-box;
+    cursor: pointer;
+    /* Smooth spring transition for arch repositioning */
+    transition:
+        transform 0.65s cubic-bezier(0.34, 1.3, 0.64, 1),
+        box-shadow 0.4s ease,
+        opacity 0.45s ease;
+    user-select: none;
+    will-change: transform, opacity;
 }
 
-.tape-body {
-    background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
-    position: relative;
-    overflow: hidden;
+/* Card "picked up" moment — brief lift + glow burst */
+@keyframes tape-pickup {
+    0%   { filter: brightness(1) drop-shadow(0 0 0px transparent); }
+    30%  { filter: brightness(1.18) drop-shadow(0 6px 18px rgba(194,73,48,0.55)); }
+    70%  { filter: brightness(1.08) drop-shadow(0 4px 12px rgba(194,73,48,0.35)); }
+    100% { filter: brightness(1) drop-shadow(0 0 0px transparent); }
 }
 
-.tape-body.clear {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(200,200,200,0.1));
-    border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+/* Arch "shuffle" ripple — cards that shift position get a subtle pulse */
+@keyframes tape-shift {
+    0%   { filter: brightness(1); }
+    40%  { filter: brightness(1.06); }
+    100% { filter: brightness(1); }
 }
 
-.tape-body.white {
-    background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
-    border: 1px solid rgba(0,0,0,0.1);
+.fanned-tape-card.is-picking-up {
+    animation: tape-pickup 0.6s ease forwards;
 }
 
-.tape-window {
-    background: rgba(0,0,0,0.8);
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.9);
-    position: relative;
-    z-index: 10;
+.fanned-tape-card.is-shifting {
+    animation: tape-shift 0.5s ease forwards;
 }
 
-.tape-reel {
-    background: radial-gradient(circle, #ddd 30%, #444 35%, #222 100%);
-    border: 1px solid #111;
+
+.fanned-tape-card .tape-body {
+    height: 100% !important;
+    padding: 7px !important;
+}
+
+.fanned-tape-card .tape-body > div:first-child {
+    height: 78px !important;
+    padding: 5px 7px !important;
+}
+
+.fanned-tape-card .tape-window {
+    height: 52px !important;
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+}
+
+.fanned-tape-card .tape-reel {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.fanned-tape-card.is-active {
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 2.5px var(--color-retro-orange),
+        0 0 25px rgba(194, 73, 48, 0.5) !important;
 }
 
 .hardware-btn {
@@ -511,6 +491,34 @@ html, body {
     transform: translateY(2px);
     border-bottom-width: 1px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* --------------------------------------------------------------------------
+   10. Cassette Tape Card Styling (Matches Tapes Screen)
+   -------------------------------------------------------------------------- */
+.tape-card {
+    background: #e8e2d8;
+    border: 1px solid #ccc6bc;
+    box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.25), 
+        0 8px 10px -6px rgba(0, 0, 0, 0.2), 
+        inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.tape-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 20px 30px -10px rgba(0, 0, 0, 0.35), 
+        0 12px 15px -8px rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.tape-window {
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.9), 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.tape-reel {
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
 }
 
 /* Custom Scrollbar for scrollable views */
@@ -537,7 +545,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   10. Animations
+   11. Animations
    -------------------------------------------------------------------------- */
 @keyframes reel-spin {
     from { transform: rotate(0deg); }
@@ -586,48 +594,236 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   11. 3D Fanned Cassette Tape Stack (Player Page)
+   11. Library & Tape Rack Storage Styles
    -------------------------------------------------------------------------- */
-.fanned-stack-viewport {
-    perspective: 1400px;
-    perspective-origin: 40% 50%;
+.tape-rack-shelf {
+    background: linear-gradient(180deg, #1c1512 0%, #2e231e 100%);
+    border: 3px solid #4a382e;
+    box-shadow: inset 0 6px 16px rgba(0, 0, 0, 0.8), 0 8px 24px rgba(0, 0, 0, 0.35);
+    position: relative;
 }
 
-.fanned-tape-card {
-    position: absolute;
-    width: 375px;
-    height: 245px;
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 
-        0 16px 36px rgba(0, 0, 0, 0.28),
-        0 4px 12px rgba(0, 0, 0, 0.16),
-        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+.tape-rack-slot {
+    border-bottom: 2px solid #150f0c;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.tape-spine {
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.34, 1.35, 0.64, 1), box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
     user-select: none;
-    will-change: transform, z-index;
+    position: relative;
 }
 
-.fanned-tape-card:hover {
+.tape-spine:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(194, 73, 48, 0.5);
+    filter: brightness(1.08);
+    z-index: 20;
+}
+
+.tape-spine:active {
+    transform: translateY(-1px) scale(1.0);
+}
+
+.tape-spine-ribs {
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.25) 0px,
+        rgba(0, 0, 0, 0.25) 2px,
+        transparent 2px,
+        transparent 5px
+    );
+}
+
+.archive-row {
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Realistic Dark Gunmetal Radio Handle
+   -------------------------------------------------------------------------- */
+.dark-radio-handle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.dark-radio-handle-bar {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top: 11px solid #242424;
+    border-left: 11px solid #1e1e1e;
+    border-right: 11px solid #1e1e1e;
+    background: transparent;
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.22) inset,
+        0 -1px 1px rgba(0, 0, 0, 0.8) inset,
+        0 8px 18px rgba(0, 0, 0, 0.35),
+        0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.dark-radio-handle-bar::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 0;
+    right: 0;
+    height: 11px;
+    background: linear-gradient(180deg, #525252 0%, #2f2f2f 25%, #181818 70%, #0a0a0a 100%);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
     box-shadow: 
-        0 24px 48px rgba(0, 0, 0, 0.38),
-        0 6px 16px rgba(0, 0, 0, 0.22);
+        0 1px 0 rgba(255, 255, 255, 0.3) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.9) inset;
 }
 
-.fanned-tape-card.is-active {
+.dark-radio-handle-grip {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46%;
+    height: 17px;
+    background: 
+        repeating-linear-gradient(90deg, #181818 0px, #181818 3px, #2c2c2c 4px, #111111 6px),
+        linear-gradient(180deg, #444 0%, #1e1e1e 40%, #0d0d0d 100%);
+    border-radius: 3px;
+    border: 1px solid #141414;
     box-shadow: 
-        0 20px 42px rgba(0, 0, 0, 0.35),
-        0 0 0 2px var(--color-retro-orange),
-        0 0 20px rgba(194, 73, 48, 0.3);
+        0 3px 6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.85);
+    z-index: 2;
 }
 
-.fanned-tape-card .card-deck-badge {
-    display: none;
+.dark-radio-handle-grip::before,
+.dark-radio-handle-grip::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    width: 5px;
+    height: 17px;
+    background: linear-gradient(180deg, #666 0%, #333 45%, #111 100%);
+    border: 1px solid #111;
+    border-radius: 2px;
 }
+.dark-radio-handle-grip::before { left: -4px; }
+.dark-radio-handle-grip::after { right: -4px; }
 
-.fanned-tape-card.is-active .card-deck-badge {
+.dark-radio-hinge {
+    width: 22px;
+    height: 30px;
+    background: linear-gradient(180deg, #4a4a4a 0%, #262626 40%, #141414 80%, #0a0a0a 100%);
+    border-radius: 3px;
+    border: 1px solid #181818;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.9);
+    position: absolute;
+    bottom: -2px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+.dark-radio-hinge-left { left: -7px; }
+.dark-radio-hinge-right { right: -7px; }
+
+.dark-radio-hinge-rivet {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle at 35% 35%, #555 0%, #222 55%, #0a0a0a 100%);
+    border-radius: 50%;
+    border: 1px solid #111;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0,0,0,0.7);
 }
 
+.archive-row:hover {
+    background-color: rgba(194, 73, 48, 0.06);
+}
 
+.archive-row.is-playing {
+    background-color: rgba(194, 73, 48, 0.12);
+    border-left: 3px solid var(--color-retro-orange);
+}
+
+/* --------------------------------------------------------------------------
+   Master Power Standby & Power Down State
+   -------------------------------------------------------------------------- */
+.deck-power-off {
+    filter: brightness(0.65) saturate(0.6);
+    transition: filter 0.5s ease-out;
+}
+
+.deck-power-off .meter-face {
+    background: #111111 !important;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.9) !important;
+}
+
+.deck-power-off #rec-led,
+.deck-power-off #pause-led {
+    opacity: 0.15 !important;
+    box-shadow: none !important;
+}
+
+.deck-power-off #needle-left,
+.deck-power-off #needle-right {
+    transform: rotate(-25deg) !important;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Boombox Chassis Theme Finishes
+   -------------------------------------------------------------------------- */
+body.theme-gunmetal .chassis-texture {
+    background-color: #1a1a1a !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E") !important;
+    border-color: #333333 !important;
+}
+
+body.theme-silver .chassis-texture {
+    background-color: #94a3b8 !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.3) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E") !important;
+    border-color: #64748b !important;
+}
+
+body.theme-ivory .chassis-texture {
+    background-color: #f5f0e6 !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,0.5) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E") !important;
+    border-color: #d1c7b7 !important;
+}
+
+/* --------------------------------------------------------------------------
+   VU Meter Backlight Glow Colors
+   -------------------------------------------------------------------------- */
+body.vu-glow-green .meter-face {
+    background: #022c22 !important;
+    box-shadow: inset 0 0 15px rgba(52, 211, 153, 0.45) !important;
+}
+body.vu-glow-green .meter-face span {
+    color: #6ee7b7 !important;
+}
+
+body.vu-glow-blue .meter-face {
+    background: #082f49 !important;
+    box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.45) !important;
+}
+body.vu-glow-blue .meter-face span {
+    color: #7dd3fc !important;
+}
