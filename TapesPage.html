@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CASSETTE - Tapes Collection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;800;900&amp;family=Inter:wght@400;500&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#5f5b54",
+                      "primary-container": "#d53d1b",
+                      "surface-container": "#f0eded",
+                      "surface-container-low": "#f6f3f2",
+                      "surface-tint": "#b52603",
+                      "on-background": "#1b1c1c",
+                      "primary": "#b22300",
+                      "on-primary-fixed-variant": "#8b1900",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-container": "#795950",
+                      "primary-fixed": "#ffdad2",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#e8e2d8",
+                      "surface-bright": "#fcf9f8",
+                      "tertiary-container": "#79746c",
+                      "on-surface": "#1b1c1c",
+                      "secondary-fixed": "#ffdbd0",
+                      "on-primary-container": "#fffbff",
+                      "surface-dim": "#dcd9d9",
+                      "on-error-container": "#93000a",
+                      "secondary": "#77574d",
+                      "outline-variant": "#e3beb6",
+                      "secondary-container": "#fed3c7",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#e7bdb1",
+                      "on-secondary-fixed-variant": "#5d4037",
+                      "inverse-on-surface": "#f3f0f0",
+                      "surface-container-high": "#eae7e7",
+                      "inverse-surface": "#303030",
+                      "inverse-primary": "#ffb4a3",
+                      "surface-container-highest": "#e4e2e1",
+                      "on-secondary-fixed": "#2c160e",
+                      "on-primary-fixed": "#3d0600",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#4a463f",
+                      "on-tertiary-fixed": "#1e1b15",
+                      "outline": "#8f7069",
+                      "primary-fixed-dim": "#ffb4a3",
+                      "surface-variant": "#e4e2e1",
+                      "on-surface-variant": "#5b403a",
+                      "on-tertiary-container": "#fffbff",
+                      "tertiary-fixed-dim": "#ccc6bc",
+                      "error": "#ba1a1a",
+                      "background": "#fcf9f8",
+                      "surface": "#fcf9f8",
+                      "on-tertiary": "#ffffff",
+                      "retro-orange": "#c24930"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "deck-margin": "40px",
+                      "gutter": "16px",
+                      "component-gap": "24px"
+              },
+              "fontFamily": {
+                      "label-mono": [
+                              "Space Mono"
+                      ],
+                      "display-meter": [
+                              "Space Mono"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "handwritten-tape": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ]
+              }
+            }
+          }
+        }
+</script>
+<link rel="stylesheet" href="style.css">
+<script src="transitions.js"></script>
+</head>
+<body class="bg-surface text-on-surface player-page-body textured-bg flex flex-col font-body-md select-none m-0 p-0">
+
+<header class="app-header">
+    <a href="PlayerPage.html" class="font-headline-lg text-2xl md:text-3xl font-black tracking-tighter text-retro-orange hover:opacity-90 transition-opacity">
+        CASSETTE
+    </a>
+    <nav class="nav-container">
+        <a href="PlayerPage.html" data-nav="player" class="nav-link">Player</a>
+        <a href="TapesPage.html" data-nav="tapes" class="nav-link active">Tapes</a>
+        <span class="nav-link disabled">Library</span>
+    </nav>
+    <div class="flex gap-3 md:gap-4 items-center">
+        <button type="button" aria-label="Settings" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="settings">settings</button>
+        <button type="button" aria-label="Power" class="material-symbols-outlined text-retro-orange hover:opacity-75 transition-opacity cursor-pointer p-1.5 focus:outline-none" data-icon="power_settings_new">power_settings_new</button>
+    </div>
+</header>
+
+<main class="main-view-container custom-scrollbar flex-1 w-full h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-4rem)] overflow-y-auto px-4 sm:px-6 md:px-deck-margin py-8 md:py-12 tapes-bg">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
+        <div>
+            <h1 class="font-headline-lg text-3xl md:text-4xl text-on-background mb-2">My Tape Collection</h1>
+            <p class="font-body-md text-on-surface-variant">Select a tape to insert and play in the cassette deck.</p>
+        </div>
+        <div class="flex items-center gap-4 w-full md:w-auto p-3 bg-surface-container rounded-lg border border-outline-variant shadow-inner">
+            <div class="relative w-full md:w-64">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input id="tape-search" class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline rounded font-label-mono text-xs text-on-background focus:ring-primary focus:border-primary" placeholder="Search tapes..." type="text">
+            </div>
+            <button class="hardware-btn px-4 py-2 rounded font-label-mono text-xs text-on-surface-variant flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">filter_list</span>
+                Filter
+            </button>
+        </div>
+    </div>
+
+    <!-- Tapes Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        
+        <!-- Tape 1: Ajiing Mathiang - Lok Abyei -->
+        <a href="PlayerPage.html?tape=lok_abyei" title="Play Lok Abyei by Ajiing Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-retro-orange/30 hover:ring-retro-orange transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2c221e] to-[#1a1412]">
+                <div class="bg-gradient-to-r from-[#f7e0b5] via-[#fff3db] to-[#e8cca0] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#c39e6a] shadow-sm relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.08\'/%3E%3C/svg%3E')] opacity-50 pointer-events-none"></div>
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-retro-orange tracking-widest uppercase">AFRO STEREO</span>
+                        <span class="font-label-mono text-[10px] text-tertiary bg-black/10 border border-[#b89560] px-1 rounded font-bold">HQ-90</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#8c6b3e] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#2c160e] tracking-tight leading-tight">“Lok Abyei”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-retro-orange mt-0.5 uppercase tracking-wider">Ajiing Mathiang</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-retro-orange text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#5b403a] font-bold">STEREO MP3</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/85 border border-[#44352e]">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#e0d0b0] to-[#8c7350]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#8c6b3e]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#e0d0b0] to-[#8c7350]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#c39e6a] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#c39e6a] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#c39e6a] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 2: Abyei Jazz Band - Nyanpanda -->
+        <a href="PlayerPage.html?tape=abyei_jazz" title="Play Nyanpanda by Abyei Jazz Band ft. Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-blue-600/30 hover:ring-blue-600 transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#101c2e] to-[#080d18]">
+                <div class="bg-gradient-to-r from-[#dbeafe] via-[#eff6ff] to-[#bfdbfe] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#3b82f6] shadow-sm relative overflow-hidden">
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-[#1e40af] tracking-widest uppercase">JAZZ MASTER</span>
+                        <span class="font-label-mono text-[10px] text-[#1e40af] bg-blue-100 border border-blue-300 px-1 rounded font-bold">TYPE II</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#93c5fd] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#0f172a] tracking-tight leading-tight">“Nyanpanda”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#1e40af] mt-0.5 uppercase tracking-wider">Abyei Jazz Band ft. Arop Nyok</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-[#1e40af] text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#3b82f6] font-bold">CHROME CrO2</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-blue-900/50">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#93c5fd] to-[#1e3a8a]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#3b82f6]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#93c5fd] to-[#1e3a8a]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#3b82f6] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#3b82f6] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#3b82f6] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 3: Arop Nyok Kuol - Samira -->
+        <a href="PlayerPage.html?tape=samira" title="Play Samira by Arop Nyok Kuol" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-red-700/30 hover:ring-red-700 transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2d1210] to-[#170908]">
+                <div class="bg-gradient-to-r from-[#ffe4e6] via-[#fff1f2] to-[#fecdd3] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#e11d48] shadow-sm relative overflow-hidden">
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-[#be123c] tracking-widest uppercase">CLASSIC FERRO</span>
+                        <span class="font-label-mono text-[10px] text-[#be123c] bg-rose-100 border border-rose-300 px-1 rounded font-bold">FE-60</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#fda4af] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#4c0519] tracking-tight leading-tight">“Samira”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#be123c] mt-0.5 uppercase tracking-wider">Arop Nyok Kuol</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-[#be123c] text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#9f1239] font-bold">HIGH OUTPUT</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-rose-950">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#fda4af] to-[#881337]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#e11d48]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#fda4af] to-[#881337]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#e11d48] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#e11d48] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#e11d48] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 4: DJ Bako - Binia Juba Mix -->
+        <a href="PlayerPage.html?tape=binia_juba" title="Play Binia Juba Mix by DJ Bako" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-indigo-500/30 hover:ring-indigo-500 transition-all">
+            <div class="tape-body clear h-48 rounded flex flex-col justify-between p-2 relative bg-[#ece9e0] border border-[#d3cfc3]">
+                <div class="bg-white h-20 rounded-sm p-2 flex flex-col justify-between shadow-sm relative z-10 rotate-[-1deg] border border-[#e5e7eb]">
+                    <div class="absolute -top-1 -right-1 w-6 h-6 bg-yellow-300/60 rounded-full blur-sm"></div>
+                    <div class="flex justify-between items-start">
+                        <span class="font-label-mono text-[11px] font-black tracking-tight text-indigo-700 uppercase">DJ BAKO DUB</span>
+                        <span class="font-label-mono text-[9px] bg-red-500 text-white font-bold px-1 rounded">HOT MIX</span>
+                    </div>
+                    <div class="text-center border-b border-dashed border-indigo-200 pb-1">
+                        <h3 class="font-handwritten-tape text-[15px] text-indigo-900 font-bold leading-tight">“Binia Juba Mix”</h3>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <p class="font-handwritten-tape text-[11px] text-gray-600">DJ.BAKO</p>
+                        <span class="font-label-mono text-[9px] text-indigo-600 font-bold">CUSTOM 90m</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/80 z-10 border border-[#ccc]">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-pink-200 to-purple-200 border-none">
+                        <div class="w-2 h-2 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-pink-200 to-purple-200 border-none">
+                        <div class="w-2 h-2 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 z-10">
+                    <div class="w-3 h-3 rounded-full bg-[#ccc] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#ccc] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#ccc] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 5: Duop Pur Duop - Ci Mal Ben -->
+        <a href="PlayerPage.html?tape=ci_mal_ben" title="Play Ci Mal Ben by Duop Pur Duop" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-emerald-600/30 hover:ring-emerald-600 transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#13271b] to-[#09150e]">
+                <div class="bg-gradient-to-r from-[#dcfce7] via-[#f0fdf4] to-[#bbf7d0] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#16a34a] shadow-sm relative overflow-hidden">
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-[#15803d] tracking-widest uppercase">PRO MASTER</span>
+                        <span class="font-label-mono text-[10px] text-[#15803d] bg-green-100 border border-green-300 px-1 rounded font-bold">2008 VINTAGE</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#86efac] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#052e16] tracking-tight leading-tight">“Ci Mal Ben”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#15803d] mt-0.5 uppercase tracking-wider">Duop Pur Duop</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-[#15803d] text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#166534] font-bold">SOUTH SUDAN</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-emerald-950">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#86efac] to-[#14532d]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#16a34a]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#86efac] to-[#14532d]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#16a34a] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#16a34a] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#16a34a] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 6: Mahmoud Abdelaziz - Juba -->
+        <a href="PlayerPage.html?tape=juba" title="Play Juba by Mahmoud Abdelaziz" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-amber-600/30 hover:ring-amber-600 transition-all">
+            <div class="tape-body white h-48 rounded flex flex-col justify-between p-2">
+                <div class="bg-[#fdfbf7] h-20 rounded-sm p-2 flex flex-col justify-between border border-[#e0dcd3] shadow-sm relative">
+                    <div class="flex justify-between items-start border-b-2 border-[#b45309] pb-1">
+                        <span class="font-headline-lg-mobile text-[14px] font-black text-[#b45309]">STUDIO MASTER</span>
+                        <span class="font-label-mono text-[10px] text-tertiary bg-amber-50 px-1 border border-amber-200 rounded">JUBA-90</span>
+                    </div>
+                    <div class="text-center mt-1">
+                        <h3 class="font-headline-lg-mobile text-[15px] font-black text-[#451a03] leading-tight">“Juba”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#b45309] mt-0.5 uppercase">Mahmoud Abdelaziz</p>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-[#ccc]">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-white border border-[#999]">
+                        <div class="w-2 h-2 bg-[#ccc] rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-full w-24 items-center justify-center opacity-80">
+                        <div class="h-[4px] w-full bg-[#333]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-white border border-[#999]">
+                        <div class="w-2 h-2 bg-[#ccc] rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2">
+                    <div class="w-3 h-3 rounded-full bg-[#d0d0d0] shadow-inner border border-[#b0b0b0]"></div>
+                    <div class="w-16 h-2 bg-[#d0d0d0] rounded-t-sm shadow-inner border border-[#b0b0b0]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#d0d0d0] shadow-inner border border-[#b0b0b0]"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 7: Kuol Diing - Master Tape -->
+        <a href="PlayerPage.html?tape=kuol_diing" title="Play Kuol Diing Classics" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-yellow-600/30 hover:ring-yellow-600 transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#332211] to-[#1a1108]">
+                <div class="bg-gradient-to-r from-[#fef08a] via-[#fef9c3] to-[#fde047] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#ca8a04] shadow-sm relative overflow-hidden">
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-[#854d0e] tracking-widest uppercase">GOLD MASTER</span>
+                        <span class="font-label-mono text-[10px] text-[#854d0e] bg-yellow-200 border border-yellow-400 px-1 rounded font-bold">TYPE IV</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#ca8a04] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#422006] tracking-tight leading-tight">Kuol Diing Classics</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#854d0e] mt-0.5">موسيقار كوال ديينق</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-[#854d0e] text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#713f12] font-bold">METAL 70μs</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-yellow-950">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#fde047] to-[#854d0e]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#ca8a04]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#fde047] to-[#854d0e]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#ca8a04] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#ca8a04] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#ca8a04] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Tape 8: Nyakol Mathiang - Tiel -->
+        <a href="PlayerPage.html?tape=tiel" title="Play Tiel by Nyakol Mathiang" class="tape-card block rounded-lg p-3 cursor-pointer group no-underline text-inherit ring-2 ring-pink-700/30 hover:ring-pink-700 transition-all">
+            <div class="tape-body h-48 rounded flex flex-col justify-between p-2 relative bg-gradient-to-b from-[#2a131e] to-[#15090f]">
+                <div class="bg-gradient-to-r from-[#fce7f3] via-[#fdf2f8] to-[#fbcfe8] h-20 rounded-sm p-2 flex flex-col justify-between border-2 border-[#db2777] shadow-sm relative overflow-hidden">
+                    <div class="flex justify-between items-start z-10">
+                        <span class="font-label-mono text-xs font-black text-[#9d174d] tracking-widest uppercase">ACOUSTIC DUB</span>
+                        <span class="font-label-mono text-[10px] text-[#9d174d] bg-pink-100 border border-pink-300 px-1 rounded font-bold">TYPE I</span>
+                    </div>
+                    <div class="text-center z-10 border-b border-dashed border-[#f472b6] pb-1">
+                        <h3 class="font-headline-lg-mobile text-sm font-black text-[#500724] tracking-tight leading-tight">“Tiel”</h3>
+                        <p class="font-label-mono text-[10px] font-bold text-[#9d174d] mt-0.5 uppercase tracking-wider">Nyakol Mathiang</p>
+                    </div>
+                    <div class="flex justify-between items-center z-10 mt-0.5">
+                        <span class="font-label-mono text-[9px] bg-[#9d174d] text-white px-1.5 py-0.2 rounded-sm font-bold tracking-wider">SIDE A</span>
+                        <span class="font-label-mono text-[9px] text-[#831843] font-bold">NORMAL BIAS</span>
+                    </div>
+                </div>
+                <div class="tape-window h-14 mx-4 rounded-sm flex items-center justify-between px-2 bg-black/90 border border-pink-950">
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#f472b6] to-[#831843]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                    <div class="flex gap-1 h-12 w-24 bg-gradient-to-r from-transparent via-[#db2777]/40 to-transparent items-center justify-center opacity-75">
+                        <div class="h-[3px] w-full bg-[#111]"></div>
+                    </div>
+                    <div class="w-8 h-8 tape-reel rounded-full flex items-center justify-center bg-gradient-to-br from-[#f472b6] to-[#831843]">
+                        <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                    </div>
+                </div>
+                <div class="h-6 flex justify-between items-end px-2 opacity-60">
+                    <div class="w-3 h-3 rounded-full bg-[#db2777] shadow-inner"></div>
+                    <div class="w-16 h-2 bg-[#db2777] rounded-t-sm shadow-inner"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#db2777] shadow-inner"></div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</main>
+
+<script>
+    const searchInput = document.getElementById('tape-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.tape-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

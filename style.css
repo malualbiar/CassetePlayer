@@ -1,0 +1,633 @@
+/* ==========================================================================
+   CASSETTE - GLOBAL & COMPONENT STYLES
+   Tactile & Skeuomorphic Retro Audio Interface
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Base & Viewport Setup
+   -------------------------------------------------------------------------- */
+:root {
+    --color-surface: #fcf9f8;
+    --color-retro-orange: #c24930;
+    --color-on-surface: #1b1c1c;
+    --color-on-surface-variant: #5b403a;
+    --color-primary: #b22300;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    height: 100%;
+    height: 100dvh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: #d1c8be;
+}
+
+/* Base Body Textured Background */
+.textured-bg {
+    background-color: #d1c8be;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 80%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+.tapes-bg {
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+    background-color: #fcf9f8;
+}
+
+/* --------------------------------------------------------------------------
+   2. Seamless Header & Navigation (Rock-solid, zero jump)
+   -------------------------------------------------------------------------- */
+.app-header {
+    height: 3.5rem; /* 56px */
+    width: 100vw;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: rgba(252, 249, 248, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    z-index: 50;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .app-header {
+        height: 4rem; /* 64px */
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .nav-container {
+        gap: 2.5rem;
+    }
+}
+
+/* Nav Link with Constant Geometry - Never shifts or jumps */
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; /* 12px */
+    font-weight: 700 !important; /* Constant bold weight so width never changes */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(91, 64, 58, 0.65);
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .nav-link {
+        font-size: 0.875rem; /* 14px */
+    }
+}
+
+.nav-link:hover {
+    color: var(--color-retro-orange);
+    border-bottom-color: rgba(194, 73, 48, 0.35);
+}
+
+.nav-link.active {
+    color: var(--color-retro-orange) !important;
+    border-bottom-color: var(--color-retro-orange) !important;
+}
+
+.nav-link.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Seamless & Subtle Page Transitions
+   -------------------------------------------------------------------------- */
+.main-view-container {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.18s cubic-bezier(0.2, 0.8, 0.4, 1), transform 0.18s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+.main-view-container.view-fade-out {
+    opacity: 0;
+    transform: scale(0.995);
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Single-Page Player Responsiveness
+   -------------------------------------------------------------------------- */
+.player-page-body {
+    height: 100%;
+    height: 100dvh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.player-scale-wrapper {
+    transform-origin: center center;
+    transform: scale(min(1, calc((100dvh - 72px) / 690), calc((100vw - 32px) / 1440)));
+    will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   5. Mechanical 3D Transport Buttons
+   -------------------------------------------------------------------------- */
+.mechanical-button {
+    background: linear-gradient(to bottom, #f5f5f5 0%, #e5e5e5 40%, #cccccc 100%);
+    box-shadow: 
+        inset 0 1px 2px rgba(255,255,255,0.9), 
+        inset 0 -1px 3px rgba(0,0,0,0.2),
+        inset 1px 0 2px rgba(255,255,255,0.5),
+        inset -1px 0 2px rgba(0,0,0,0.1),
+        0 4px 0 #999,
+        0 4px 3px rgba(0,0,0,0.4),
+        0 6px 8px rgba(0,0,0,0.3);
+    border: 1px solid #aaa;
+    border-bottom: none;
+    border-radius: 3px 3px 1px 1px;
+    transition: all 0.08s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    transform: translateY(0);
+    cursor: pointer;
+}
+
+.mechanical-button::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: -1px;
+    right: -1px;
+    height: 4px;
+    background: linear-gradient(to right, #888, #aaa, #888);
+    border-radius: 0 0 1px 1px;
+    z-index: -1;
+    transition: height 0.08s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mechanical-button:active, .mechanical-button.latched {
+    transform: translateY(3px);
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.3), 
+        inset 0 -1px 1px rgba(255,255,255,0.3),
+        0 1px 0 #888,
+        0 1px 2px rgba(0,0,0,0.5),
+        0 2px 4px rgba(0,0,0,0.2);
+    background: linear-gradient(to bottom, #e0e0e0, #c8c8c8);
+}
+
+.mechanical-button:active::after, .mechanical-button.latched::after {
+    height: 1px;
+    bottom: -1px;
+}
+
+.btn-symbol {
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+    opacity: 0.85;
+    font-size: 22px !important;
+    user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. Speaker Grille & Visual Details
+   -------------------------------------------------------------------------- */
+.speaker-grille {
+    background-color: #c7c1b5;
+    background-image: 
+        radial-gradient(circle at 1.5px 1.5px, #2a2520 1.5px, transparent 0),
+        linear-gradient(to right, rgba(0,0,0,0.1) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.2) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.1) 100%);
+    background-size: 4px 4px, 100% 100%, 100% 100%;
+    background-position: 0 0, 0 0, 0 0;
+    box-shadow: 
+        inset 0 0 20px rgba(0,0,0,0.8),
+        inset 0 5px 15px rgba(0,0,0,0.6),
+        inset -5px -5px 15px rgba(255,255,255,0.1);
+    position: relative;
+    border: 2px solid #a39987;
+}
+
+.speaker-grille::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 90%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+
+/* --------------------------------------------------------------------------
+   7. VU Meters & Rotary Knobs
+   -------------------------------------------------------------------------- */
+.vu-meter-bg {
+    background: linear-gradient(to bottom, #e3d3b3, #c9b48f);
+    box-shadow: 
+        inset 0 2px 5px rgba(0,0,0,0.6), 
+        inset 0 -1px 2px rgba(255,255,255,0.4),
+        0 1px 1px rgba(255,255,255,0.5);
+    border: 1px solid #9e8557;
+    border-bottom-color: #d1b98a;
+    border-right-color: #d1b98a;
+}
+
+.knob-texture {
+    background: radial-gradient(circle at 35% 35%, #e8d09e, #c3ae7f 40%, #8c7341 80%, #5c471c);
+    box-shadow: 
+        -2px -2px 6px rgba(255,255,255,0.5),
+        4px 4px 10px rgba(0,0,0,0.6),
+        inset 0 0 3px rgba(0,0,0,0.3),
+        0 8px 12px -4px rgba(0,0,0,0.5);
+    position: relative;
+    border: 1px solid #6b5322;
+}
+
+.knob-texture::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+        from 0deg,
+        #c3ae7f 0deg 2deg, 
+        #a38c57 2deg 4deg,
+        #8c7341 4deg 6deg
+    );
+    box-shadow: 
+        inset 0 0 8px rgba(0,0,0,0.6),
+        inset 0 2px 2px rgba(255,255,255,0.4);
+}
+
+.knob-texture::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #b09968, #8c7341);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 1px 2px rgba(255,255,255,0.3);
+    z-index: 10;
+}
+
+.antenna-rod {
+    background: linear-gradient(to bottom, #d0d0d0 0%, #ffffff 20%, #a0a0a0 50%, #707070 80%, #505050 100%);
+    box-shadow: 
+        0 20px 30px rgba(0,0,0,0.4),
+        0 5px 10px rgba(0,0,0,0.2),
+        inset 0 1px 1px rgba(255,255,255,0.9),
+        inset 0 -1px 2px rgba(0,0,0,0.6);
+    border-radius: 3px;
+    border: 1px solid #888;
+}
+
+/* --------------------------------------------------------------------------
+   8. Flat Crystal-Clear Glass Cassette Door
+   -------------------------------------------------------------------------- */
+.flat-glass-cover {
+    background: linear-gradient(
+        180deg, 
+        rgba(255, 255, 255, 0.07) 0%, 
+        rgba(255, 255, 255, 0.02) 20%, 
+        rgba(255, 255, 255, 0.01) 80%, 
+        rgba(255, 255, 255, 0.05) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+        0 4px 10px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 4px;
+    z-index: 25;
+    overflow: hidden;
+}
+
+.flat-glass-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09) 0%,
+        rgba(255, 255, 255, 0.02) 60%,
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+.chassis-texture {
+    background-color: #c24930;
+    background-image: 
+        linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.2) 100%),
+        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 60%);
+    position: relative;
+}
+
+.chassis-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    mix-blend-mode: multiply;
+}
+
+.crevice-dust {
+    box-shadow: inset 0 0 12px rgba(60,40,30,0.4);
+}
+
+.screw-head {
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #eee, #999 40%, #555);
+    border-radius: 50%;
+    box-shadow: 
+        inset 1px 1px 2px rgba(255,255,255,0.9), 
+        inset -1px -1px 3px rgba(0,0,0,0.6), 
+        0 1px 2px rgba(0,0,0,0.5),
+        0 0 4px rgba(60,40,30,0.5);
+    position: absolute;
+    border: 1px solid #444;
+}
+
+.screw-head::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 6px; height: 1.5px;
+    background: linear-gradient(to bottom, #222, #444);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    border-radius: 1px;
+}
+
+.screw-head::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 6px; height: 1.5px;
+    background: linear-gradient(to bottom, #222, #444);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    border-radius: 1px;
+}
+
+.gold-panel {
+    background: linear-gradient(135deg, #dbca9e 0%, #c3ae7f 40%, #a8915b 100%);
+    box-shadow: 
+        inset 1px 1px 2px rgba(255,255,255,0.8),
+        inset -1px -1px 3px rgba(0,0,0,0.4),
+        0 2px 4px rgba(0,0,0,0.3);
+    border: 1px solid #8a7647;
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.05) 2px,
+        rgba(255,255,255,0.05) 4px
+    );
+    pointer-events: none;
+}
+
+.studio-shadow {
+    box-shadow: 
+        0 40px 80px -15px rgba(0,0,0,0.45),
+        0 20px 40px -20px rgba(0,0,0,0.3),
+        0 -2px 6px 0 rgba(255,255,255,0.3) inset,
+        0 -15px 30px 0 rgba(0,0,0,0.4) inset,
+        15px 0 30px 0 rgba(255,255,255,0.1) inset,
+        -15px 0 30px 0 rgba(0,0,0,0.3) inset;
+}
+
+.dof-blur {
+    filter: blur(0.8px);
+}
+
+/* --------------------------------------------------------------------------
+   9. Tape Collection Page Styles
+   -------------------------------------------------------------------------- */
+.tape-card {
+    box-shadow: 
+        0 10px 25px -5px rgba(0, 0, 0, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,240,240,0.85) 100%);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.tape-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+        0 20px 35px -10px rgba(0, 0, 0, 0.25),
+        inset 0 2px 4px rgba(255, 255, 255, 0.9),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tape-body {
+    background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.tape-body.clear {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(200,200,200,0.1));
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.tape-body.white {
+    background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.tape-window {
+    background: rgba(0,0,0,0.8);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.9);
+    position: relative;
+    z-index: 10;
+}
+
+.tape-reel {
+    background: radial-gradient(circle, #ddd 30%, #444 35%, #222 100%);
+    border: 1px solid #111;
+}
+
+.hardware-btn {
+    background: linear-gradient(to bottom, #f8f8f8, #e0e0e0);
+    border: 1px solid #c0c0c0;
+    border-bottom: 3px solid #a0a0a0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1), inset 0 1px 0 #fff;
+    transition: all 0.1s;
+}
+
+.hardware-btn:active {
+    transform: translateY(2px);
+    border-bottom-width: 1px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Custom Scrollbar for scrollable views */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   10. Animations
+   -------------------------------------------------------------------------- */
+@keyframes reel-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes reel-spin-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+.reel-spinning {
+    animation: reel-spin 3s linear infinite;
+}
+
+.reel-fast-forward {
+    animation: reel-spin 0.8s linear infinite;
+}
+
+.reel-fast-rewind {
+    animation: reel-spin-reverse 0.8s linear infinite;
+}
+
+@keyframes vu-dance-left {
+    0% { transform: rotate(-22deg); }
+    20% { transform: rotate(-8deg); }
+    45% { transform: rotate(-16deg); }
+    70% { transform: rotate(-2deg); }
+    100% { transform: rotate(-19deg); }
+}
+
+@keyframes vu-dance-right {
+    0% { transform: rotate(-10deg); }
+    30% { transform: rotate(6deg); }
+    55% { transform: rotate(-5deg); }
+    80% { transform: rotate(10deg); }
+    100% { transform: rotate(-7deg); }
+}
+
+.vu-dancing-l {
+    animation: vu-dance-left 0.6s ease-in-out infinite alternate;
+}
+
+.vu-dancing-r {
+    animation: vu-dance-right 0.5s ease-in-out infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   11. 3D Fanned Cassette Tape Stack (Player Page)
+   -------------------------------------------------------------------------- */
+.fanned-stack-viewport {
+    perspective: 1400px;
+    perspective-origin: 40% 50%;
+}
+
+.fanned-tape-card {
+    position: absolute;
+    width: 375px;
+    height: 245px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.28),
+        0 4px 12px rgba(0, 0, 0, 0.16),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.34, 1.35, 0.64, 1), box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+    user-select: none;
+    will-change: transform, z-index;
+}
+
+.fanned-tape-card:hover {
+    box-shadow: 
+        0 24px 48px rgba(0, 0, 0, 0.38),
+        0 6px 16px rgba(0, 0, 0, 0.22);
+}
+
+.fanned-tape-card.is-active {
+    box-shadow: 
+        0 20px 42px rgba(0, 0, 0, 0.35),
+        0 0 0 2px var(--color-retro-orange),
+        0 0 20px rgba(194, 73, 48, 0.3);
+}
+
+.fanned-tape-card .card-deck-badge {
+    display: none;
+}
+
+.fanned-tape-card.is-active .card-deck-badge {
+    display: flex;
+}
+
+
